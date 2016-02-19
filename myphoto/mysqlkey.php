@@ -1,0 +1,10 @@
+<?php
+$db_host="127.0.0.1";
+$db_user="root";
+$db_pass="0430";
+$db_name="test1";
+$table_members="bbs_members";
+$table_posts="bbs_posts";
+$link=mysql_connect($db_host,$db_user,$db_pass);
+mysql_select_db($db_name,$link);
+?>

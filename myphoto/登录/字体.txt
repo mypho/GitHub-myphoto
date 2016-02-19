@@ -1,0 +1,3 @@
+欢迎：Adobe 黑体 Std 18px 000000
+登录 注册：Adobe 黑体 Std 18px ffffff
+忘记密码：Adobe 黑体 Std 12px 7b8392

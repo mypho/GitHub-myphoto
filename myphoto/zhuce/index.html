@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+body {
+	background: #dddddd;
+	margin-top: auto;
+}
+#page {
+ background:url(bgpic.png);
+	background-repeat:repeat-y;
+	margin: 0 auto;
+	font-size: 12px;
+	min-width: 1024px;
+	height: 696px;
+	max-width: 1476px;
+}
+.clear {
+	clear: both
+}
+#logo {
+	opacity: 1.0;
+	filter: alpha(opacity=100);
+}
+#logo:hover {
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+td {
+	font-size: 14px;
+	font-family: '微软雅黑';
+	color: #222;
+}
+input:focus {
+	border-color: #0CF;
+	outline: none;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+input[type=text], input[type=password], input[type=email] {
+	background: #ffffff;
+	border-radius: 3px;
+	border: 1px solid #999;
+	height: 25px;
+	width: 200px;
+}
+.kezhuce {
+	background-color: #69b946;
+	height: 48px;
+	width: 200px;
+	color: #FFF;
+	font-size: 20px;
+	font-family: '微软雅黑';
+	border: 1px solid #0a0;
+}
+.gb {
+	background: #69b946;
+}
+.wb {
+	background: #999;
+}
+</style>
+<script src="../jquery.js"></script>
+<script src="zhuce.js"></script>
+<link rel="stylesheet" type="text/css" href="../head.css" />
+<script>
+$(document).ready(function(){
+	$.post("../useronline.php",{path:"../"},function(data){
+		if(data!=""){
+			$('#useronline').html(data);
+		}
+	});
+});
+</script>
+</head>
+
+<body>
+<div class="fixeditem">
+  <div class="container"> <a href="./"  class="myphotologo" onmouseover="this.className='myphotologoo'" onmouseout="this.className='myphotologo'"  title="首页"> </a>
+     <div style=" display:block;float:left; width:600px;height:40px;"></div><div class="pull-right">
+      <ul>
+        <li><a href="../" class="row" style="border:none;" onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
+          <div class="homeicon icons"></div>
+          首页 </a></li>
+        <li><a href="../faxian" class="row " onMouseOver="this.className='row light' " onMouseOut="this.className='row '">
+          <div class="faxianicon icons"></div> 发现 </a></li>
+        <li><a href="../upload" class="row" onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
+          <div class="uploadicon icons"></div> 上传 </a></li>
+        <li><a href="../login.php" class="row " onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
+          <div class="loginicon icons"></div> 登录 </a></li>
+        <li><a href="" class="row onlight" onMouseOver="this.className='row light' " onMouseOut="this.className='row onlight'">
+          <div class="zhuceicon icons"></div> 注册 </a></li>
+          </span>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="blank"></div>
+<div id="page">
+  <div id="head">
+    <div style="float:left" id='logo' class='logo' > <a href="index.html"><img id="logo" src="../登录/登录logo-455×270.png" alt="" width="200" height="121" style="margin-left:200px;margin-top:40px;" ></a> </div>
+    <div class="clear"></div>
+  </div>
+  <div style="background:#ffffff; width:720px;  border:1px solid #bdd;margin:0 auto; margin-top:40px" >
+  <div style="    position: absolute;
+    width: 550px;
+    height: 25px;
+    line-height: 25px;
+    font-family: '微软雅黑';
+    font-size: 18px;
+    text-indent: 6px;
+    border-left: 3px solid #59AfE4;
+    margin-top: 70px;
+    margin-left:80px;">注册账号<hr style="height:3px;border:none;border-top:2px solid #ccc; " /></div>
+   <div>
+    <form action="zhuce.php" method="post" id="form"  onSubmit="return Judge(this)" style="margin-left:140px; margin-top:150px; margin-bottom:100px">
+      <table cellspacing="6" border="0" width="430px" >
+        <tr >
+          <td align="right"  >账号</td>
+          <td><input type="text" name="user" id="user" maxlength="18" ></td>
+          <td style=" font-size: 12px;  color: #666;"><p style="line-height:0;">用于平时登录的账号</p>
+            <p style="line-height:0px;">由6~18位英文和数字组成</p></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td id="userle"></td>
+        </tr>
+        <tr>
+          <td align="right">用户名</td>
+          <td><input type="text" name="uname" maxlength="18"></td>
+          <td style=" font-size: 12px;  color: #666;"><p style="line-height:0;">您的名称</p>
+            <p style="line-height:0px;">最多18个字符</p></td>
+        </tr>
+        <tr>
+          <td align="right">密码</td>
+          <td><input type="password" id="password" name="password" maxlength="12"></td>
+          <td style=" font-size: 12px;  color: #666;"><p >8~16个字符组成</p></td>
+        </tr>
+        <tr>
+          <td align="right">确认密码</td>
+          <td><input type="password" id="passwordc" name="passwordc" maxlength="12"></td>
+          <td style=" font-size: 12px;  color: #666;">再次输入密码</td>
+        </tr>
+        <tr>
+          <td/>
+          <td id="passwordck"></td>
+        </tr>
+        <tr>
+          <td align="right">性别</td>
+          <td><input type="radio" id='sexm' name="sex" value="boy">
+            男
+            <input type="radio" name="sex" value="girl">
+            女</td>
+          <td style=" font-size: 12px;  color: #666;"></td>
+        </tr>
+        <tr>
+          <td align="right">邮箱</td>
+          <td><input type="email" name="email"></td>
+          <td style=" font-size: 12px;  color: #666;">便于找回密码</td>
+        </tr>
+          </tr>
+        
+        <tr height="28px">
+          <td align="right">验证码</td>
+          <td><input type="text" id="yzm_code" name="yzm_code" style="width:60px; border-radius: 3px; border: 1px solid #999; height:25px;vertical-align:middle;" maxlength="4" >
+            <span id="yzmok"></span>
+            <input type="hidden" id="sbif" value="">
+            <img id="code" name="code" align="right" src="verification.php?n=00000" style="vertical-align:middle; " ></td>
+          <td style=" font-size: 12px;  color: #666;"><a id="changepic">看不清？换图片</a></td>
+        </tr>
+        <tr>
+          <td/>
+          <td><input type="submit" name="zhuce" id='2' value="确认注册" class="kezhuce gb" ></td>
+          <td/>
+        </tr>
+      </table>
+    </form>
+
+  </div>
+</div>
+</body>
+</html>

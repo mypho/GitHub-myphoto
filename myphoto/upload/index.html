@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>图片上传</title>
+<link rel="stylesheet" type="text/css" href="main.css" />
+
+<link rel="stylesheet" type="text/css" href="../head.css" />
+<script type="text/javascript" src="http://libs.useso.com/js/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.wallform.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#photoimg').die('click').live('change', function(){
+		var status = $("#up_status");
+		var btn = $("#up_btn");
+		$("#imageform").ajaxForm({
+			target: '#preview', 
+			beforeSubmit:function(){
+				status.show();
+				btn.hide();
+			}, 
+			success:function(){
+				status.hide();
+				btn.show();
+			}, 
+			error:function(){
+				status.hide();
+				btn.show();
+		} }).submit();
+	});
+});
+</script>
+<script>
+$(document).ready(function(){
+	$.post("../useronline.php",{path:"../"},function(data){
+		if(data!=""){
+			$('#useronline').html(data);
+			$.get("uploadpreview.php",function(h){
+				$('#preview').html(h);
+			});
+		}else{
+			$('#preview').html("<img hidden/><h3 style='line-height:40px'>您还未登录，无法上传图片！<p><a href='../login.php?dump=upload'>点此登录</h3></p>");
+			$("#nextpage").hide();
+			$("#tianjia").hide();
+		}
+	});
+});
+</script>
+</head>
+
+<body style="background:#DFDFDF; min-width:1476px">
+<div class="fixeditem">
+  <div class="container"> <a href="../index.html"  class="myphotologo" onmouseover="this.className='myphotologoo'" onmouseout="this.className='myphotologo'"  title="首页"> </a>
+<div style=" display:block;float:left; width:600px;height:40px;"></div>
+    <div class="pull-right">
+      <ul>
+        <li><a href="../" class="row" style="border:none;" onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
+          <div class="homeicon icons"></div>
+          首页 </a></li>
+        <li><a href="../faxian" class="row " onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
+          <div class="faxianicon icons"></div>
+          发现 </a></li>
+        <li><a href="" class="row onlight" onMouseOver="this.className='row light' " onMouseOut="this.className='row onlight'">
+          <div class="uploadicon icons"></div>
+          上传 </a></li>
+        <sapn id="useronline"><li><a href="../login.php?dump=faxian" class="row" onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
+          <div class="loginicon icons"></div>
+          登录 </a></li>
+        <li><a href="../zhuce" class="row" onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
+          <div class="zhuceicon icons"></div>
+          注册 </a></li>
+          </span>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="blank"></div>
+<div id="page" >
+  <div style=" position:relative; " id='logo' class='logo' > <a href="index.html"> <img id="logo" src="../登录/登录logo-455×270.png" alt="" width="200px" height="121px" style="margin-left:200px;margin-top:40px;" > </a> </div>
+  <div id="main">
+    <form id="imageform" method="post" enctype="multipart/form-data" action="upload.php">
+      <div id="tianjia" class="top_title">第一步：上传图片(最大5M，支持jpg，gif，png格式) <span id="up_status" style="display:none"><img src="loader.gif" style="position:absolute;right:15px" alt="uploading"/></span> <span id="up_btn" class="btn"> <span>添加图片</span>
+        <input id="photoimg" type="file" name="photoimg">
+        </span> </div>
+      <p> </p>
+    </form>
+    <div id="preview"></div>
+    <br/>
+    <input id="nextpage" type="button" class="btn2" value="下一步" onClick="javascript:window.location.href='description.php'" >
+  </div>
+</div>
+</body>
+</html>
