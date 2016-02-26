@@ -86,7 +86,7 @@ $(document).ready(function(){
 <div class="blank"></div>
 <div id="page" class="pagepage">
   <div id="head">
-    <div style="float:left" id='logo' class='logo' > <a href=""><img id="logo" src="登录/登录logo-455×270.png" alt="" width="200" height="121" style="margin-left:200px;margin-top:40px;" ></a> </div>
+    <div style="float:left" id='logo' class='logo' > <a href="./"><img id="logo" src="登录/登录logo-455×270.png" alt="" width="200" height="121" style="margin-left:200px;margin-top:40px;" ></a> </div>
     <div class="clear"></div>
   </div>
   <?php echo "<form method=\"post\" action=\"deallogin.php?dump=".$_GET['dump']."\">";

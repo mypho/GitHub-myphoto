@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="shortcut icon" href="logo/logo.ico">
 <title>登陆处理</title>
 <style type="text/css">
 body {

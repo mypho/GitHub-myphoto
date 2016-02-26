@@ -91,7 +91,7 @@ $(document).ready(function(){
 
 
 <div id="page" >
-  <div style=" position:relative; " id='logo' class='logo' > <a href="index.html"> <img id="logo" src="../登录/登录logo-455×270.png" alt="" width="200px" height="121px" style="margin-left: 200px; margin-top: 40px; margin-bottom: 30px;" > </a> </div>
+  <div style=" position:relative; " id='logo' class='logo' > <a href="../"> <img id="logo" src="../登录/登录logo-455×270.png" alt="" width="200px" height="121px" style="margin-left: 200px; margin-top: 40px; margin-bottom: 30px;" > </a> </div>
   <div id="main">
     <h2 class="top_title">第二步：添加描述</h2>
     <form id="descriptform" method="post"  action="" onSubmit="return sub()">
