@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 <meta a http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Myphoto搜索结果</title>
+<title>Myphoto-搜索结果</title>
 <link rel="shortcut icon" href="../logo/logo.ico">
 <link href='search/css/style.css' rel='stylesheet'>
 <script src='search/js/jquery.js'></script>
