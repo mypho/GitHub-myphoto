@@ -1,7 +1,7 @@
 <?php
 $db_host="127.0.0.1";
 $db_user="root";
-$db_pass="rootroot";
+$db_pass="0430";
 $db_name="test1";
 $table_members="bbs_members";
 $table_posts="bbs_posts";

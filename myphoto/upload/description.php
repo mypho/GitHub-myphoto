@@ -2,8 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="shortcut icon" href="../logo/logo.ico">
-<title>myphoto-描述图片</title>
+<title>描述图片</title>
 <link rel="stylesheet" type="text/css" href="description.css" />
 <link rel="stylesheet" type="text/css" href="../head.css" />
 <script src="../jquery.js"></script>
