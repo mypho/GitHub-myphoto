@@ -86,16 +86,25 @@ $(document).ready(function(){
       <?php 
 require "../mysqlkey.php";
 $key=$_GET['key'];
-$i=(int)$_GET['page']-1;
-if((int)$_GET['num']<1){
-	$num=1;
-}else{
-	$num=(int)$_GET['num'];
+$keyarray=explode(" ",$key);//搜索优化：key带有空格的多条件搜索
+$keylimit="";
+foreach($keyarray as $value){ 
+	$keylimit.="(keywords like '%$value%' or title like '%$value%') and ";//对多个条件进行and
 }
-$sum=mysql_num_rows(mysql_query("select * from $table_posts where (keywords like '%$key%' or title like '%$key%') and keywords<>'#'",$link));
-if($i>=$sum/$num){$i=ceil($sum/$num)-1;}
+$sql="select * from $table_posts where".$keylimit."keywords<>'#'"; //最终的查找语句
+$sum=mysql_num_rows(mysql_query($sql,$link));
+$i=(int)$_GET['page']-1;//i=page-1 页数，从0开始
+if(isset($_GET['num'])){ //num=每页显示数目
+	if((int)$_GET['num']<1){
+		$num=1;
+	}else{
+		$num=(int)$_GET['num'];
+	}
+}else{$num=15;}
+
+if($i>=$sum/$num){$i=ceil($sum/$num)-1;}//特殊情况处理
 if($i<0){$i=0;}
-$res=mysql_query("select * from $table_posts where (keywords like '%$key%' or title like '%$key%') and keywords<>'#' limit ".$i*$num.",".$num,$link) ;
+$res=mysql_query($sql." limit ".$i*$num.",".$num,$link) ;
 
 if(mysql_num_rows($res)==0){
 	echo "<h3 class='grid-item' style=\"text-align:center;\">没有任何结果</h3>";
@@ -105,7 +114,8 @@ if(mysql_num_rows($res)==0){
 		echo"<figure class=\"picNdes grid-item\">
 			<img src=\"../images/".$rows['url']."\"onClick=\"$('#viewimg').attr('src','../images/".$rows['url']."');picshow();\">
 			<figcaption>
-			<div>
+			<div class=\"biaoqian\" style=\"width:auto; font-weight:bold;\">".$rows['title']."
+			</div><br/><div>
 			<div class=\"biaoqian\">标签:</div><div>";
 		$biaoqian=explode("|",$rows['keywords']);
 		foreach($biaoqian as $value){
