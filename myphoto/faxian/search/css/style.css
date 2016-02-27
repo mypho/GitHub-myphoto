@@ -121,6 +121,60 @@ body, .control-input {
   vertical-align: middle; }
   .control-button:hover {
     background-color: #0bbce8; }
+	
+	.pagelink{
+  -webkit-transition: 0.3s ease;
+  -moz-transition: 0.3s ease;
+  transition: 0.3s ease;
+  background-color: #31cef5;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  height: 32px;
+  font-size: 14px;
+  line-height: 32px;
+  margin: 0 0.25em;
+  padding: 0 1em;
+  vertical-align: middle;
+  text-decoration:none;
+   }
+  .pagelink:hover {
+    background-color: #0bbce8; }
+	.pagelinkdisable{
+  -webkit-transition: 0.3s ease;
+  -moz-transition: 0.3s ease;
+  transition: 0.3s ease;
+  background-color: #aaa;
+  border-radius: 4px;
+  color: white;
+  display: inline-block;
+  height: 32px;
+  font-size: 14px;
+  line-height: 32px;
+  margin: 0 0.25em;
+  padding: 0 1em;
+  vertical-align: middle;
+  text-decoration:none;
+   }
+#controls-top form{
+	display:inline;
+}
+#controls-top input{
+  -webkit-transition: 0.3s ease;
+  -moz-transition: 0.3s ease;
+  transition: 0.3s ease;
+  width:40px;
+  border:1px solid #808080;
+  border-radius: 2px;
+  height: 28px;
+  font-size: 14px;
+  line-height:28px;
+  margin: 0 0.25em;
+  text-align:center;
+  vertical-align: middle;
+}
+
 
 #wrapper {
   margin-bottom: 72px;
@@ -279,4 +333,6 @@ body, .control-input {
  
 .search .sbtn:hover {
     background:#ddd;
+}
+.pagelink{
 }

@@ -16,7 +16,6 @@ function picshow(){
 function download(){
 	var id=Math.random();	
 	aa=document.getElementById('viewimg').src;
-	alert(aa);
 	document.getElementById('url').value=aa;
 	document.getElementById('downloadform').submit();
 }
@@ -24,6 +23,13 @@ function download(){
 <link rel="stylesheet" type="text/css" href="../head.css" />
 <script type="text/javascript" src="../jquery.js"></script>
 <script>
+function submitByEnter(form)
+    {
+        if(event.keyCode == 13)
+        {
+            form.submit();
+        }
+    }
 $(document).ready(function(){
 	$.post("../useronline.php",{path:"../"},function(data){
 		if(data!=""){
@@ -74,41 +80,69 @@ $(document).ready(function(){
 </span>
 </div>
 <div class="htmleaf-container">
-  <div id='controls-top'>布局
-    <div class='control-button eight'>宽屏显示</div>
-    <div class='control-button nine'>3列显示</div>
-    <div class='control-button twelve'>元素：窄</div>
-    <div class='control-button eleven'>元素：宽</div>
-  </div>
+
   <div id='wrapper'>
     <div class='grid-wrapper'>
       <?php 
 require "../mysqlkey.php";
 $key=$_GET['key'];
-$res=mysql_query("select * from $table_posts where (keywords like '%$key%' or title like '%$key%') and keywords<>'#'",$link) ;
-if(mysql_num_rows($res)==0){
-	echo "<h1>没有任何结果</h1>";
-	exit();
+$i=(int)$_GET['page']-1;
+if((int)$_GET['num']<1){
+	$num=1;
+}else{
+	$num=(int)$_GET['num'];
 }
-while($rows=mysql_fetch_array($res)){
-	echo"<figure class=\"picNdes grid-item\">
-		<img src=\"../images/".$rows['url']."\"onClick=\"$('#viewimg').attr('src','../images/".$rows['url']."');picshow();\">
-		<figcaption>
-		<div>
-		<div class=\"biaoqian\">标签:</div><div>";
-	$biaoqian=explode("|",$rows['keywords']);
-	foreach($biaoqian as $value){
-		echo "<a href=\"?key=$value\" >$value</a>";
+$sum=mysql_num_rows(mysql_query("select * from $table_posts where (keywords like '%$key%' or title like '%$key%') and keywords<>'#'",$link));
+if($i>=$sum/$num){$i=ceil($sum/$num)-1;}
+if($i<0){$i=0;}
+$res=mysql_query("select * from $table_posts where (keywords like '%$key%' or title like '%$key%') and keywords<>'#' limit ".$i*$num.",".$num,$link) ;
+
+if(mysql_num_rows($res)==0){
+	echo "<h3 class='grid-item' style=\"text-align:center;\">没有任何结果</h3>";
+	
+}else{
+	while($rows=mysql_fetch_array($res)){
+		echo"<figure class=\"picNdes grid-item\">
+			<img src=\"../images/".$rows['url']."\"onClick=\"$('#viewimg').attr('src','../images/".$rows['url']."');picshow();\">
+			<figcaption>
+			<div>
+			<div class=\"biaoqian\">标签:</div><div>";
+		$biaoqian=explode("|",$rows['keywords']);
+		foreach($biaoqian as $value){
+			echo "<a href=\"?key=$value\" >$value</a>";
+		}
+		echo"</div></div><p>";
+		$str=$rows['content'];
+		$str = str_replace(array("\r", "\n"), "<br/>", $str);   
+		$str=str_replace(" ","&nbsp;",$str);
+		echo $str;
+		echo "</p></figcaption></figure>";
 	}
-	echo"</div></div><p>";
-	$str=$rows['content'];
-	$str = str_replace(array("\r", "\n"), "<br/>", $str);   
-	$str=str_replace(" ","&nbsp;",$str);
-	echo $str;
-	echo "</p></figcaption></figure>";
 }
 ?>
+	
     </div>
+  </div>
+    <div id='controls-top'>布局
+    <div class='control-button eight'>宽屏显示</div>
+    <div class='control-button nine'>3列显示</div>
+    <div class='control-button twelve'>元素：窄</div>
+    <div class='control-button eleven'>元素：宽</div>
+    <div style="display:inline-block;width:200px;"></div>
+    <?php
+	$maxpage=$sum/$num;
+	$disable="";$linkclass="";
+	if($i<=0){$disable=" onclick='return false;'";$linkclass="disable";}
+	echo "<a class=\"pagelink$linkclass\" href='?key={$key}&num={$num}&page=$i' $disable>上一页</a>";
+	echo"<form action='' method='get' onkeydown='submitByEnter(this);'>";
+	echo"<input type='hidden' name='key' value='$key'/>
+	<input name='page' value=".($i+1)." />";
+	$disable="";$linkclass="";
+	if($i>=$maxpage-1){$disable=" onclick='return false;'";$linkclass="disable";}
+    echo "<a class=\"pagelink$linkclass\" href='?key={$key}&num={$num}&page=".($i+2)."' $disable>下一页</a>";
+	echo "<div style='display:inline-block;width:50px;'>共".ceil($sum/$num)."页</div>";
+	echo "每页显示<input name='num' value='$num'/>条结果</form>";
+	?>
   </div>
   <!--<div id='controls-bottom'>
 	  <input class='control-input one' placeholder='添加一张图片的URL看看效果！' type='url'>

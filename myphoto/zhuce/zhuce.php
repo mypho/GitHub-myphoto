@@ -3,8 +3,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<title>登陆处理</title>
+<link rel="shortcut icon" href="../logo/logo.ico" />
+<title>myphoto=用户注册</title>
 <style type="text/css">
 body {
 	background: #dddddd;
