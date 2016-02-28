@@ -4,7 +4,9 @@
 <meta http-equiv="Content-Type" content=" charset=utf-8">
 <title>图片评论</title>
 <style type="text/css">
-
+body{
+	background:#eee;
+}
 
 div#letter {
 	position:relative;
@@ -14,6 +16,7 @@ div#letter {
 	text-align:center;
 	margin:auto;
 	margin-top:80px;
+	padding-bottom:40px;
 }
 div#font {
 	position:relative;
@@ -31,19 +34,18 @@ div#font {
 
 div#user_msg{
 	position:relative;
-	padding-top:50px;
-	padding-left:80px;
+	padding:50px 80px 40px;
 	text-align:left;
-		width:100px;
+
 
 }
 #user_msg img{
-	width:100px;
+	width:60px;
 }
 div#zhuti{
-	background:#FFF;
+	background:#eee;
 	max-width:600px;
-	padding: 20px 30px 5px;
+	padding: 0 30px 5px 20px;
 	display: inline-block;
 	margin-top:20px;
 
@@ -51,9 +53,14 @@ div#zhuti{
 
 #user_msg div{
 	font-family:"黑体";
-	font-size:20px;
+	font-size:28px;
+	line-height:60px;
+	font-weight:800;
+
 	text-align:center;
-	width:100px;
+	display:inline-block;
+	margin-left:20px;
+	vertical-align:top;
 }
 
 .font2{
@@ -70,16 +77,49 @@ div#zhuti{
 }
 
 </style>
+<script src="../jquery.js"></script>
+<script src="zhuce.js"></script>
+<link rel="stylesheet" type="text/css" href="../head.css" />
+<script>
+$(document).ready(function(){
+	$.post("../useronline.php",{path:"../"},function(data){
+		if(data!=""){
+			$('#useronline').html(data);
+		}
+	});
+});
+</script>
 </head>
+<body>
+<div class="fixeditem">
+  <div class="container"> <a href="./"  class="myphotologo" onmouseover="this.className='myphotologoo'" onmouseout="this.className='myphotologo'"  title="首页"> </a>
+    <div style=" display:block;float:left; width:600px;height:40px;"></div><div class="pull-right">
+      <ul>
+        <li><a href="../" class="row" style="border:none;" onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
+          <div class="homeicon icons"></div>
+          首页 </a></li>
+        <li><a href="../faxian" class="row " onMouseOver="this.className='row light' " onMouseOut="this.className='row '">
+          <div class="faxianicon icons"></div> 发现 </a></li>
+        <li><a href="../upload" class="row" onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
+          <div class="uploadicon icons"></div> 上传 </a></li>
+        <li><a href="../login.php" class="row " onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
+          <div class="loginicon icons"></div> 登录 </a></li>
+        <li><a href="" class="row" onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
+          <div class="zhuceicon icons"></div> 注册 </a></li>
+          </span>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="blank"></div>
 
-<body background="个人界面-图层/个人用户博客界面_0031_背景.png">
 
 <div id="letter">
-<div style="float:right;">
+<div style="float:right;margin:10px 30px;">
 <div id="font">
 <span >搜索</span><span >归档</span><span>投稿</span><span >私信</span>
 </div>
-   <img src="个人界面-图层/个人用户博客界面_0025_蓝条.png"  width=70px height="8" /><img src="个人界面-图层/个人用户博客界面_0026_绿条.png" width=70px height="8" /><img src="个人界面-图层/个人用户博客界面_0027_黄条.png" width=70px height="8" /><img src="个人界面-图层/个人用户博客界面_0028_红条.png" width=70px height="8" /></div>
+   <img src="个人界面-图层/个人用户博客界面_0025_蓝条.png"  width=60px height="8" /><img src="个人界面-图层/个人用户博客界面_0026_绿条.png" width=60px height="8" /><img src="个人界面-图层/个人用户博客界面_0027_黄条.png" width=60px height="8" /><img src="个人界面-图层/个人用户博客界面_0028_红条.png" width=60px height="8" /></div>
 	
 	
 	
@@ -113,9 +153,6 @@ echo"<div>".$rows_poster['nickname']."</div>";
 echo"</div>";
 echo"<div id='zhuti'>";
 echo"<p class=\"font2\">".$rows_picture['title']."</p>";
-if($rows_picture['width']>"527" or $rows_picture['height']>"584")
-echo"<img src='../images/".$rows_picture['url']."' width=\"527\" height=\"584\" />";
-else 
 echo"<img src='../images/".$rows_picture['url']."' style=\"max-width:600px\" />";
 echo"<p class=\"font3\">".$rows_picture['content']."</p>";
 echo"</div>";
