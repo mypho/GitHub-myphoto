@@ -174,7 +174,44 @@ body, .control-input {
   text-align:center;
   vertical-align: middle;
 }
+#srh{
+	text-align:center;
+	margin-top:30px;
+	margin-bottom:10px;
+}
+#kw{
+	    padding: 10px 9px 10px 7px;
+    border: 0;
+    background-image: none;
+    height: 20px;
+    line-height: 20px;
+	font-size:20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	width: 521px;
+	vertical-align: middle;
+    display: inline-block;
+	outline:0;
+}
 
+	
+
+#su{
+	    width: 104px;
+    height: 40px;
+    line-height: 40px;
+	    cursor: pointer;
+    color: #000;
+    font-size: 16px;
+	border:none;
+	    margin: 0;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	background:#31cef5;
+	color:#eee;
+	font-weight:bold;
+	position:relative;
+	left:-3px;
+	   vertical-align: middle;
+}
 
 #wrapper {
   margin-bottom: 72px;
@@ -190,10 +227,12 @@ body, .control-input {
  
   position: absolute;
   margin: 0 auto; }
-.grid-item img {
+.image > img {
     display: block;
     height: auto;
-    width: 100%; }
+    width: 100%;
+	cursor:pointer;
+}
 .letter {
 	background: url(../../../pic/letterbg.png);
 }
@@ -212,6 +251,44 @@ body, .control-input {
 .picNdes > img:hover {
 	opacity:0.9;
 }
+.image{
+	position:relative;
+}
+.image > div{
+	position:absolute;
+	bottom:0;
+	width:100%;
+	height:30px;
+	background-color:rgba(0,0,0,0.5);
+	display:none;
+	text-align:left;
+}
+.image > div img {
+	height:24px;
+	padding:3px;
+	display:inline-block;
+	vertical-align:middle;
+}
+.image > div span {
+	height:30px;
+	font-size:14px;
+	color:#ddd;
+	vertical-align:middle;
+	line-height:30px;
+	display:inline-block;
+}
+.image > div span:hover{
+	text-decoration:underline;
+}
+.image > div div{
+	position:absolute;
+	right:8px;
+	bottom:0;
+	height:30px;
+	font-size:12px;
+	color:#ccc;
+	line-height:30px;
+}
 .picNdes figcaption div {
 	text-align: left;
 	margin: 3px 0 0 0;
@@ -226,7 +303,7 @@ body, .control-input {
 .picNdes figcaption div + div {
 	float: left;
 }
-.picNdes figcaption div a {
+.picNdes figcaption div div a {
 	display: inline-block;
 	background-color: #aaa;
 	margin: 0 0 7px 6px;
@@ -252,13 +329,20 @@ body, .control-input {
 	text-align: left;
 	word-wrap: break-word;
 }
-.picNdes figcaption a:hover{
+.picNdes figcaption div div a:hover{
 	background-color:#6ed534;
 }
+figcaption > a {
+	text-decoration:none;
+}
+figcaption > a :hover{
+	text-decoration:underline;
+}
+	
 	
 #view
 {
-	position:fixed; z-index:1; width:100%; height:100%; background-color:rgba(0,0,0,0.8);text-align:center; display:none;
+	position:fixed; z-index:1; width:100%; height:100%; background-color:rgba(0,0,0,0.8);text-align:center; display:none; cursor:pointer;
 }
 #view span{
 	display:inline-block;vertical-align:middle;text-align:center;

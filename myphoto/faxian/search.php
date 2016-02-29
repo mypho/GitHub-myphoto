@@ -13,8 +13,7 @@ function picshow(){
 	$('#viewimg').css('max-width',$(window).width()/1.08);
 	$('#view').show();
 }
-function download(){
-	var id=Math.random();	
+function download(){	
 	aa=document.getElementById('viewimg').src;
 	document.getElementById('url').value=aa;
 	document.getElementById('downloadform').submit();
@@ -35,6 +34,7 @@ $(document).ready(function(){
 		if(data!=""){
 			$('#useronline').html(data);
 		}
+		$(".pull-right").show();
 	});
 });
 </script>
@@ -70,7 +70,7 @@ $(document).ready(function(){
   </div>
 </div>
 <div class="blank"></div>
-<div id="view" onClick="$('#view').hide()"> 
+<div id="view" onClick="$('#view').hide()" title="点击返回"> 
 <span style="height:100%;"></span> 
 <span style="max-width:99%"> 
  <form method='post' id="downloadform" action='../download.php'>
@@ -80,7 +80,11 @@ $(document).ready(function(){
 </span>
 </div>
 <div class="htmleaf-container">
-
+<form id="srh"method="get" action="" >
+<img src="../logo/logo-203×123.png" style="vertical-align: middle; margin-right:20px;">
+<input type="text" name="key" id="kw" maxlength="100" autocomplete="off" value="<?=$_GET['key']?>">
+<input type="submit" value="搜  索" id="su" >
+</form>
   <div id='wrapper'>
     <div class='grid-wrapper'>
       <?php 
@@ -111,22 +115,28 @@ if(mysql_num_rows($res)==0){
 	
 }else{
 	while($rows=mysql_fetch_array($res)){
+		$poster_id=$rows['poster_id'];
+		$user_rows=mysql_fetch_array(mysql_query("select * from $table_members where id = '$poster_id'",$link));
+
 		echo"<figure class=\"picNdes grid-item\">
-			<img src=\"../images/".$rows['url']."\"onClick=\"$('#viewimg').attr('src','../images/".$rows['url']."');picshow();\">
+			<div class='image' onMouseOver='$(this).children(\"div\").show();' onMouseOut='$(this).children(\"div\").hide();'>
+			<img src=\"../images/".$rows['url']."\" title='".$rows['content']."' onClick=\"$('#viewimg').attr('src','../images/".$rows['url']."');picshow();\"  />
+			<div>
+			<img src='../touxiang/".$user_rows['photo']."' />
+			<a href='../userinfo?id=$poster_id'><span>".$user_rows['nickname']."</span></a>
+			<div>点击图片查看大图</div>
+			</div></div>
 			<figcaption>
-			<div class=\"biaoqian\" style=\"width:auto; font-weight:bold;\">".$rows['title']."
-			</div><br/><div>
+			<a href='../imageinfo?id=".$rows['id']."' >
+			<div class=\"biaoqian\" style=\"width:auto; font-weight:bold;\"title='".$rows['content']."'>".$rows['title']."
+			</div></a><br/><div>
 			<div class=\"biaoqian\">标签:</div><div>";
 		$biaoqian=explode("|",$rows['keywords']);
 		foreach($biaoqian as $value){
 			echo "<a href=\"?key=$value\" >$value</a>";
 		}
-		echo"</div></div><p>";
-		$str=$rows['content'];
-		$str = str_replace(array("\r", "\n"), "<br/>", $str);   
-		$str=str_replace(" ","&nbsp;",$str);
-		echo $str;
-		echo "</p></figcaption></figure>";
+		echo"</div></div>";
+		echo "</figcaption></figure>";
 	}
 }
 ?>
@@ -140,24 +150,21 @@ if(mysql_num_rows($res)==0){
     <div class='control-button eleven'>元素：宽</div>
     <div style="display:inline-block;width:200px;"></div>
     <?php
+	
+	echo"<form action='' method='get' onkeydown='submitByEnter(this);' style='width:472px;display:inline-block'>";//跳转表单
 	$maxpage=$sum/$num;
 	$disable="";$linkclass="";
-	if($i<=0){$disable=" onclick='return false;'";$linkclass="disable";}
+	if($i<=0){$disable=" onclick='return false;'";$linkclass="disable";}//上一页
 	echo "<a class=\"pagelink$linkclass\" href='?key={$key}&num={$num}&page=$i' $disable>上一页</a>";
-	echo"<form action='' method='get' onkeydown='submitByEnter(this);'>";
 	echo"<input type='hidden' name='key' value='$key'/>
 	<input name='page' value=".($i+1)." />";
 	$disable="";$linkclass="";
 	if($i>=$maxpage-1){$disable=" onclick='return false;'";$linkclass="disable";}
-    echo "<a class=\"pagelink$linkclass\" href='?key={$key}&num={$num}&page=".($i+2)."' $disable>下一页</a>";
+    echo "<a class=\"pagelink$linkclass\" href='?key={$key}&num={$num}&page=".($i+2)."' $disable>下一页</a>";//下一页
 	echo "<div style='display:inline-block;width:50px;'>共".ceil($sum/$num)."页</div>";
 	echo "每页显示<input name='num' value='$num'/>条结果</form>";
 	?>
   </div>
-  <!--<div id='controls-bottom'>
-	  <input class='control-input one' placeholder='添加一张图片的URL看看效果！' type='url'>
-	  <div class='control-button bottom-one'>添加</div>
-	</div>--> 
 </div>
 <script src='search/js/raf.js'></script> 
 <script src='search/js/jquery.js'></script> 

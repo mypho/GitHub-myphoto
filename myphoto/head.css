@@ -34,11 +34,12 @@
 	background-image: url(logo/logop162.png);
 	display: block;
 	float: left;
+
 }
 .pull-right {
 	height: 40px;
 	float:light;
-	display: block;
+	display: none;
 }
 ul, li {
 	padding: 0;
