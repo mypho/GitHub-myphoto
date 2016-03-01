@@ -203,6 +203,45 @@ $(document).ready(function(){
 }
 .pagelink{
 }
+#srh{
+	text-align:center;
+	margin-top:70px;
+	margin-right:200px;
+	float:right;
+}
+#kw{
+	    padding: 10px 9px 10px 7px;
+    border: 0;
+    background-image: none;
+    height: 20px;
+    line-height: 20px;
+	font-size:20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	width: 521px;
+	vertical-align: middle;
+    display: inline-block;
+	outline:0;
+}
+
+	
+
+#su{
+	    width: 104px;
+    height: 40px;
+    line-height: 40px;
+	    cursor: pointer;
+    color: #000;
+    font-size: 16px;
+	border:none;
+	    margin: 0;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	background:#31cef5;
+	color:#eee;
+	font-weight:bold;
+	position:relative;
+	left:-3px;
+	   vertical-align: middle;
+}
 </style>
 
 <body>
@@ -241,13 +280,10 @@ $(document).ready(function(){
   <div id="head">
     <div id='test1' class='d'>
       <div style="float:left" id='logo' class='logo' > <a href="../"><img src="faxian_files/logo-203×123.png" alt="" width="154" height="93" style=" margin-left:280px;margin-top:40px;" > </a> </div>
-      <div style="color:black;float:right;width:270px;letter-spacing:4px;margin-top:50px;margin-right:80px;" id='head right' >
- <p>
-          <form class="search" action="search.php" method="get">
-<input class="sinput" type="text" name="key" />
-<input class="sbtn" type="submit" value="搜索" /></form>
-</p>
-      </div>
+      <form id="srh"method="get" action="search.php" >
+<input type="text" name="key" id="kw" maxlength="100" autocomplete="off" >
+<input type="submit" value="搜  索" id="su" >
+</form>
       <div class="clear"></div>
     </div>
     <div id="links">
