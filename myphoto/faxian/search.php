@@ -82,7 +82,7 @@ $(document).ready(function(){
 <div class="htmleaf-container">
 <form id="srh"method="get" action="" >
 <img src="../logo/logo-203×123.png" style="vertical-align: middle; margin-right:20px;">
-<input type="text" name="key" id="kw" maxlength="100" autocomplete="off" >
+<input type="text" name="key" id="kw" maxlength="100" autocomplete="off" value="<?=$_GET['key']?>" >
 <input type="submit" value="搜  索" id="su" >
 </form>
   <div id='wrapper'>
