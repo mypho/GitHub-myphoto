@@ -4,6 +4,139 @@
 <meta http-equiv="Content-Type" content=" charset=utf-8">
 <title>图片评论</title>
 <style type="text/css">
+	
+#view
+{
+	position:fixed; z-index:1; width:100%; height:100%; background-color:rgba(0,0,0,0.8);text-align:center; display:none; cursor:pointer; left:0;top:40px;
+}
+#view span{
+	display:inline-block;vertical-align:middle;text-align:center;
+}
+#dowload{
+	width: 80px;
+	height: 40px;
+	background-color: #6Ed534;
+	color: #fff;
+	line-height: 40px;
+	font-size: 20px;
+	letter-spacing: 3px;
+	cursor: pointer;
+	border-radius: 4px;
+	margin-bottom: 0;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+}
+#viewimg{
+	background:#fff;
+	display:inline-block;
+	margin:0 auto;
+}
+.picNdes {
+	display: block;
+	vertical-align: top;
+	margin: 0px;
+	max-width: 1200px;
+	text-align: center;
+}
+.picNdes > img {
+	border: 1px solid #ccc;
+	max-width: 1200px;
+	max-height: 400px;
+}
+.picNdes > img:hover {
+	opacity:0.9;
+}
+.image{
+	position:relative;
+}
+.image > div{
+	position:absolute;
+	bottom:0;
+	width:100%;
+	height:30px;
+	background-color:rgba(0,0,0,0.5);
+	display:none;
+	text-align:left;
+}
+.image > img{
+	width:400px;
+}
+.image > div img {
+	height:24px;
+	padding:3px;
+	display:inline-block;
+	vertical-align:middle;
+}
+.image > div span {
+	height:30px;
+	font-size:14px;
+	color:#ddd;
+	vertical-align:middle;
+	line-height:30px;
+	display:inline-block;
+}
+.image > div span:hover{
+	text-decoration:underline;
+}
+.image > div div{
+	position:absolute;
+	right:8px;
+	bottom:0;
+	height:30px;
+	font-size:12px;
+	color:#ccc;
+	line-height:30px;
+}
+.picNdes figcaption div {
+	text-align: left;
+	margin: 3px 0 0 0;
+}
+.biaoqian {
+	width: 35px;
+	float: left;
+	color: #555;
+	font-size: 14px;
+	line-height: 22px;
+}
+.picNdes figcaption div + div {
+	float: left;
+}
+.picNdes figcaption div div a {
+	display: inline-block;
+	background-color: #aaa;
+	margin: 0 0 7px 6px;
+	white-space: nowrap;
+	text-decoration: none;
+	font-size: 12px;
+	color: #fff;
+	vertical-align: middle;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.picNdes figcaption p {
+	clear: both;
+	margin: 0px;
+	margin-bottom: 10px;
+	padding-left: 5px;
+	border: none;
+	vertical-align: middle;
+	font-family: KaiTi;
+	font-size: 16px;
+	line-height: 18px;
+	border-left: 1px solid #000;
+	text-align: left;
+	word-wrap: break-word;
+}
+.picNdes figcaption div div a:hover{
+	background-color:#6ed534;
+}
+figcaption > a {
+	text-decoration:none;
+}
+figcaption > a :hover{
+	text-decoration:underline;
+}
 body{
 	background:#eee;
 }
@@ -38,9 +171,7 @@ div#user_msg{
 
 
 }
-#user_msg img{
-	width:60px;
-}
+
 #user_msg div{
 	font-family:"黑体";
 	font-size:28px;
@@ -52,19 +183,35 @@ div#user_msg{
 	margin-left:20px;
 	vertical-align:top;
 }
+.post{float:left; width:400px; margin-left:30px; margin-bottom:30px;}
 
 
 
 
 </style>
 <script src="../jquery.js"></script>
+<script src="jquery.masonry.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../head.css" />
 <script>
+
+function picshow(){
+	$('#view').css('height',$(window).height()-40);
+	$('#viewimg').css('max-height',$(window).height()-120);
+	$('#viewimg').css('max-width',$(window).width()/1.08);
+	$('#view').show();
+}
+function download(){	
+	aa=document.getElementById('viewimg').src;
+	document.getElementById('url').value=aa;
+	document.getElementById('downloadform').submit();
+}
+
 $(document).ready(function(){
 	$.post("../useronline.php",{path:"../"},function(data){
 		if(data!=""){
 			$('#useronline').html(data);
 		}
+		$(".pull-right").show();
 	});
 });
 </script>
@@ -92,6 +239,15 @@ $(document).ready(function(){
   </div>
 </div>
 <div class="blank"></div>
+<div id="view" onClick="$('#view').hide()" title="点击返回"> 
+<span style="height:100%;"></span> 
+<span style="max-width:99%"> 
+ <form method='post' id="downloadform" action='../download.php'>
+	<input type='hidden' id='url' name='url' value=""/></form>
+  <img id="viewimg" src="../logo/logo.png" />
+  <div id="dowload" onClick="download();">下载</div>
+</span>
+</div>
 
 
 <div id="letter">
@@ -103,21 +259,46 @@ $(document).ready(function(){
 <?php
 require "../mysqlkey.php";
 echo"<div id='user_msg'>";
-$picture_id=$_GET['id'];
-$result_picture=mysql_query("select * from $table_posts where id='$picture_id'",$link);
-$rows_picture=mysql_fetch_array($result_picture);
-$poster_id=$rows_picture['poster_id'];
-
-$result_user=mysql_query("select * from $table_members where id='$poster_id'",$link);
+$user_id=$_GET['id'];
+$result_user=mysql_query("select * from $table_members where id='$user_id'",$link);
 $rows_poster=mysql_fetch_array($result_user);
 
-echo"<img src=\"../touxiang/".$rows_poster['photo']."\" />"; 
-echo"<div>".$rows_poster['nickname']."</div>";
-echo"</div>";
+echo"<img src=\"../touxiang/".$rows_poster['photo']."\" style='width:60px;'/>"; 
+echo"<div>".$rows_poster['nickname']."</div></div>";
+
+$sql="select * from $table_posts where poster_id='$user_id' and keywords<>'#'"; 
+$res=mysql_query($sql,$link);
+$sum=mysql_num_rows($res);
+if($sum==0){
+	echo "<h3 style=\"text-align:center;\">该用户没有发表任何图文</h3>";
+	
+}else{
+
+	while($rows=mysql_fetch_array($res)){
+		$poster_id=$rows['poster_id'];
+		$user_rows=mysql_fetch_array(mysql_query("select * from $table_members where id = '$poster_id'",$link));
+
+		echo"<figure class=\"picNdes post\">
+			<div class='image' onMouseOver='$(this).children(\"div\").show();' onMouseOut='$(this).children(\"div\").hide();'>
+			<img src=\"../images/".$rows['url']."\" title='".$rows['content']."' onClick=\"$('#viewimg').attr('src','../images/".$rows['url']."');picshow();\"  />
+			<div>
+			<img src='../touxiang/".$user_rows['photo']."' />
+			<a href='../userinfo?id=$poster_id'><span>".$user_rows['nickname']."</span></a>
+			<div>点击图片查看大图</div>
+			</div></div>
+			<figcaption>
+			<a href='../imageinfo?id=".$rows['id']."' >
+			<div class=\"biaoqian\" style=\"width:auto; font-weight:bold;\"title='".$rows['content']."'>".$rows['title']."
+			</div></a>";
+		echo "</figcaption></figure>";
+	}
+}
+
+
 ?>
 	
 	
-  
+  <div style="clear:both"></div>
 </div>
 </body>
 </html>
