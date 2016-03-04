@@ -230,7 +230,16 @@ echo"</div>";
   </form>
   <div style="text-align:left;">
   <p style="text-align:left; padding-left:5%; font-family:FangSong;">相 关 图 片</p>
-  <img src="图片评论-图层/个人用户博客界面-拷贝_0003_相关图1.png"  style=" padding-left:80px;"/>
+  <?php
+  $picture1_key=$rows_picture['keywords'];
+ $urlres=mysql_query("select url,id from $table_posts where keywords like '%$picture1_key%' limit 4",$link);
+ while($value=mysql_fetch_array($urlres))
+
+{
+	echo"<a href='../imageinfo/?id=".$value[1]."'><img src='../images/".$value[0]."' style=\" float:left; width:200px; height:200px; padding-left:80px;\" /></a>";
+}
+  ?>
+  <div style="clear:both;"></div>
   </div>
 </div>
 </body>
