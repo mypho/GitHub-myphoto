@@ -34,6 +34,7 @@
 }
 .picNdes {
 	display: block;
+	display: inline-block;
 	vertical-align: top;
 	margin: 0px;
 	max-width: 1200px;
@@ -181,7 +182,58 @@ div#user_msg{
 }
 .post{float:left; width:400px; margin-left:30px; margin-bottom:30px;}
 
-
+.search {
+    display:inline-block;
+    position:relative;
+    height:27px;
+	margin-top:6px;
+	margin-left:20px;
+}
+ 
+.search:hover {
+    -webkit-box-shadow:0 0 3px #999;
+    -moz-box-shadow:0 0 3px #999
+}
+ 
+.search .sinput {
+    float:left;
+    width:130px;
+    height:20px;
+    line-height:20px;
+    padding:3px 5px;
+    border:#A7A7A7 1px solid;
+    background:#ccc;
+    color:#888;
+    font-size:12px;
+    -webkit-transition:.3s;
+    -moz-transition:.3s;
+    outline: none;
+}
+ 
+.search .sinput:focus {
+    width:200px;
+}
+ 
+.search .sbtn {
+	cursor: pointer;
+	height: 28px;
+	font-size: 12px;
+	float: left;
+	width: 50px;
+	margin-left: -1px;
+	background: #eee;
+	display: inline-block;
+	padding: 0 12px;
+	vertical-align: middle;
+	border: #A7A7A7 1px solid;
+	color: #666;
+}
+ 
+.search .sbtn:hover {
+    background:#ddd;
+}
+.pagelink{
+}
 
 
 </style>
@@ -215,7 +267,11 @@ $(document).ready(function(){
 <body>
 <div class="fixeditem">
   <div class="container"> <a href="./"  class="myphotologo" onmouseover="this.className='myphotologoo'" onmouseout="this.className='myphotologo'"  title="首页"> </a>
-    <div style=" display:block;float:left; width:600px;height:40px;"></div><div class="pull-right">
+  <div style=" display:block;float:left; width:600px;height:40px;">
+     <form class="search" action="faxian/search.php" method="get">
+<input class="sinput" type="text" name="key" />
+<input class="sbtn" type="submit" value="搜索" /></form></div> 
+    <div class="pull-right">
       <ul>
         <li><a href="../" class="row" style="border:none;" onMouseOver="this.className='row light' " onMouseOut="this.className='row'">
           <div class="homeicon icons"></div>
@@ -269,6 +325,7 @@ if($sum==0){
 	echo "<h3 style=\"text-align:center;\">该用户没有发表任何图文</h3>";
 	
 }else{
+    echo"<div id='content'>";
 
 	while($rows=mysql_fetch_array($res)){
 		$poster_id=$rows['poster_id'];
@@ -286,6 +343,7 @@ if($sum==0){
 			<a href='../imageinfo?id=".$rows['id']."' >
 			<div class=\"biaoqian\" style=\"width:auto; font-weight:bold;\"title='".$rows['content']."'>".$rows['title']."
 			</div></a>";
+			echo"<p>".$rows['content']."</p>";
 		echo "</figcaption></figure>";
 	}
 }
@@ -296,5 +354,15 @@ if($sum==0){
 	
   <div style="clear:both"></div>
 </div>
+</div>
+<script type="text/javascript">
+$(function(){  
+   $('#content').masonry({
+    itemSelector : '.post',
+    columnWidth : 430
+  });  
+});
+</script>
+
 </body>
 </html>
