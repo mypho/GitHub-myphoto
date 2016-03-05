@@ -166,21 +166,17 @@ div#font {
 }
 div#user_msg{
 	position:relative;
-	padding:50px 80px 40px;
+	padding:120px 40px 40px;
 	text-align:left;
 
 
 }
 
 #user_msg div{
-	font-family:"黑体";
+	font-family:"Arial","微软雅黑";
 	font-size:28px;
 	line-height:60px;
-	font-weight:800;
-
-	text-align:center;
-	display:inline-block;
-	margin-left:20px;
+	text-align:left;
 	vertical-align:top;
 }
 .post{float:left; width:400px; margin-left:30px; margin-bottom:30px;}
@@ -251,7 +247,7 @@ $(document).ready(function(){
 
 
 <div id="letter">
-<div style="float:right;margin:10px 30px;">
+<div style="float:right;margin:20px 80px;">
 <div id="font">
 <span >搜索</span><span >归档</span><span>投稿</span><span >私信</span>
 </div>
@@ -263,7 +259,7 @@ $user_id=$_GET['id'];
 $result_user=mysql_query("select * from $table_members where id='$user_id'",$link);
 $rows_poster=mysql_fetch_array($result_user);
 
-echo"<img src=\"../touxiang/".$rows_poster['photo']."\" style='width:60px;'/>"; 
+echo"<img src=\"../touxiang/".$rows_poster['photo']."\" style='width:80px;'/>"; 
 echo"<div>".$rows_poster['nickname']."</div></div>";
 
 $sql="select * from $table_posts where poster_id='$user_id' and keywords<>'#'"; 
