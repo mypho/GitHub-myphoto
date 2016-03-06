@@ -65,7 +65,7 @@ input[type=email], input[type=number], input[type=password], input[type=tel], in
 .search .sinput {
     float:left;
     width:130px;
-    height:20px;
+    height:28px;
     line-height:20px;
     padding:3px 5px;
     border:#A7A7A7 1px solid;
